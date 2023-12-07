@@ -16,7 +16,7 @@ class DogRepository @Inject constructor(
 
     override suspend fun getRandomDog(): Flow<DogResponse> {
         return flow {
-            dogCEOService.getRandomDog()
+            emit(dogCEOService.getRandomDog())
         }
     }
 }
