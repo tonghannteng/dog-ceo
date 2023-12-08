@@ -36,62 +36,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             DogCEOTheme {
-
-                val viewModel: MainViewModel = hiltViewModel<MainViewModel>()
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(16.dp)
-                ) {
-
-                    Column(
-                        modifier = Modifier.height(500.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        when (val result = viewModel.state.collectAsState().value) {
-                            is DogState.Loading -> {
-                                CircularProgressIndicator()
-                            }
-
-                            is DogState.Error -> run {
-                                viewModel::getRandomDog
-                            }
-
-                            is DogState.Success -> {
-                                Image(
-                                    modifier = Modifier.height(300.dp).width(300.dp),
-                                    painter = rememberAsyncImagePainter(
-                                        ImageRequest.Builder(
-                                            LocalContext.current
-                                        ).data(data = result.data.message)
-                                            .apply(block = fun ImageRequest.Builder.() {
-                                                crossfade(true)
-                                            }).build()
-                                    ), contentDescription = "Dog"
-                                )
-                                Text(
-                                    text = result.data.status
-                                )
-                                Text(
-                                    modifier = Modifier.fillMaxWidth().padding(16.dp),
-                                    text = result.data.message
-                                )
-
-                            }
-                        }
-                    }
-
-                    Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = viewModel::getRandomDog,
-                    ) {
-                        Text(text = "Next dog!")
-                    }
-                }
+                val viewModel = hiltViewModel<MainViewModel>()
+                DogCEOScreen(
+                    viewModel = viewModel
+                )
             }
         }
     }

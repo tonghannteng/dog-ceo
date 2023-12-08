@@ -27,9 +27,9 @@ class MainViewModel @Inject constructor(
     private val _state = MutableStateFlow<DogState>(DogState.Loading)
     val state = _state.asStateFlow()
 
-    init {
-        getRandomDog()
-    }
+//    init {
+//        getRandomDog()
+//    }
 
     /**
      * Get Random dog.
