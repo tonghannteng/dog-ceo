@@ -17,12 +17,17 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.tonghannteng.dogceo.data.state.DogState
@@ -59,19 +64,15 @@ fun DogCEOScreen(
                 }
 
                 is DogState.Success -> {
-                    Image(
-                        modifier = Modifier
-                            .height(300.dp)
-                            .width(300.dp),
-                        painter = rememberAsyncImagePainter(
-                            ImageRequest.Builder(
-                                LocalContext.current
-                            ).data(data = result.data.message)
-                                .apply(block = fun ImageRequest.Builder.() {
-                                    crossfade(true)
-                                }).build()
-                        ), contentDescription = "Dog"
-                    )
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(result.data.message)
+                            .error(R.drawable.placeholder)
+                            .crossfade(true)
+                            .build(),
+                        placeholder = painterResource(id = R.drawable.placeholder),
+                        contentDescription = "Dog",
+                        modifier = Modifier.height(300.dp).width(300.dp))
                     Text(
                         text = result.data.status
                     )
