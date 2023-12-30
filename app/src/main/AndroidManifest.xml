@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DogCEO"
         tools:targetApi="31">
+
+        <activity android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
+            android:exported="true"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

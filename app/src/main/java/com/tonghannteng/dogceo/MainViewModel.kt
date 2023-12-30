@@ -2,8 +2,6 @@ package com.tonghannteng.dogceo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tonghannteng.dogceo.data.model.DogResponse
-import com.tonghannteng.dogceo.data.repository.DogRepository
 import com.tonghannteng.dogceo.data.repository.IDogRepository
 import com.tonghannteng.dogceo.data.state.DogState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +22,7 @@ class MainViewModel @Inject constructor(
     private val repository: IDogRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<DogState>(DogState.Loading)
+    private val _state = MutableStateFlow<DogState?>(null)
     val state = _state.asStateFlow()
 
 //    init {
